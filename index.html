@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <script src="js-year-calendar.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js-year-calendar.min.css" />
+
+    <title>Shift Schedule Manager</title>
+
+    <style>
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+span.rotate-text {
+    transform: rotate(33deg);
+    display: block;
+}
+
+
+.group-name {
+    position: absolute;
+    left: -47px;
+    width: 51px;
+    text-align: center;
+}
+
+.members ul {
+    position: relative;
+}
+span.shift-super:before {
+    content: '\27F3';
+    position: absolute;
+    left: -50px;
+    font-size: 48px;
+    font-weight: bold;
+    top: -25px;
+}
+span.shift-super.shift-A:before{
+  color: #00768B;
+}
+span.shift-super.shift-B:before{
+  color: #1EA0A5;
+}
+span.shift-super.shift-C:before{
+  color: #004C48;
+}
+span.shift-super.shift-D:before{
+  color: #B44237;
+}
+
+.closer {
+    background: lightblue;
+    display: inline;
+    padding: 2px 20px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+.members h5 {
+    text-align: center;
+    font-size: 25px;
+}
+.members ul li span {
+    background: red;
+    padding: 5px;
+    margin-bottom: 6px;
+    display: block;
+    color: white;
+    font-size: 18px;
+}
+.members ul li  {
+ list-style: none;
+}
+.members ul li ul {
+    margin-left: 10px;
+}
+
+.members {
+    display: flex;
+    justify-content: space-evenly;
+}
+.shift-A,.day-off-A{
+  background: #00768B !important;
+  color: white;
+}
+.day-off-border-A {
+    border: solid 2px #00768B ;
+    color: black;
+}
+.shift-B,.day-off-B{
+  background: #1EA0A5 !important;
+  color: white;
+}
+.day-off-border-B {
+    border: solid 2px #1EA0A5 ;
+    color: black;
+}
+.shift-C,.day-off-C{
+  background: #004C48 !important;
+  color: white;
+}
+.day-off-border-C {
+    border: solid 2px #004C48 ;
+    color: black;
+}
+.shift-D,.day-off-D{
+  background: #B44237 !important;
+  color: white;
+}
+
+.day-off-border-D,.day-off-border-B,.day-off-border-A,.day-off-border-C {
+    border: solid 2px #B44237 !important;
+    color: black;
+}
+
+
+.Off-days{
+  background-color: #B44237;
+  color: white;
+}
+
+.R{
+  background: #FDB121 !important;
+  color:white  !important;
+}
+.H{
+  background: #00DFFF !important;
+  color:white  !important;
+}
+.N{
+  background: #993299 !important;
+  color:white  !important;
+}
+.L{
+  background: #407294 !important;
+  color:white  !important;
+}
+.ramadan{
+  background: #20B2AA !important;
+  color:white  !important;
+}
+
+.HS{
+  background: red;
+}
+
+select#shiftType {
+    font-size: 20px;
+    padding: 12px;
+    width: 100vh;
+    border: solid #7474a3;
+}
+
+.progress-bar-height{
+  height: 50px;
+}
+
+.calendar table.month tr td, .calendar table.month tr th {
+    padding: 2.1px 0.4px 0.5px 0.5px;
+}
+
+.calendar table td, .calendar table th {
+    text-align: center;
+    width: 64px;
+    height: 35px;
+    border: none;
+    padding: 4px 5px;
+    font-size: 15px;
+}
+.day-content {
+    color: black;
+    font-size: 15px;
+}
+th.month-title,th.day-header  {
+    background: rgb(103, 66, 66);
+    color: white;
+}
+
+select#shiftType {
+    font-size: 20px;
+    padding: 12px;
+    width: 100vh;
+    border: solid #7474a3;
+    margin: auto;
+    margin-top: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+}
+
+.calendar table.month td.day .day-content {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 10px;
+    padding: 4px 2px;
+    margin: 1.5px;
+}
+
+.calendar table.month th.day-header,.calendar table.month th.month-title {
+    font-size: 14px;
+    background: #407294 ;
+    opacity: 70%;
+} 
+
+span.col-sm-2.col-md-3.col-lg-2.p-3.explain {
+    font-size: 14px;
+    font-weight: bold;
+    background: #58b2b5;
+    color: white;
+}
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row">
+<select class='col-sm-12 col-lg-12 col-md-12 text-center'  id='shiftType'>
+  <option value="A">Shift A</option>
+  <option value="B">Shift B</option>
+  <option value="C">Shift C</option>
+  <option value="D" selected>Shift D</option>
+</select>
+
+
+</div>
+    <div>
+    <!-- <span v-on:click="tableLayout">Table Layout</span>-->
+    <!--<span v-on:click="rowsLayout"> Rows Layout</span> -->
+    <img src="pdf.png" width="30" height="30"  id="generatePDF">
+    <div id="google-signin-button" ></div>
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <!-- <span v-on:click="showMeAlert"> A</span>-->
+    <!--<img v-if="layout == 'row'" v-on:click="showMemebers" src="src/assets/img/members.png" width="30" height="30">-->
+    </div>
+    <hr>
+    <div>
+        <div class="calendar-container">
+          <div class="generated-result-A"></div>
+          <div class="generated-result-B"></div>
+          <div class="generated-result-C"></div>
+          <div class="generated-result-D"></div>
+            <div class="categories row text-center mb-2">
+                <span class="col-sm-2 col-md-2 col-lg-2 p-3 ramadan">Ramadan</span>
+                <span class="col-sm-2 col-md-2 col-lg-2 p-3 R">Rescheduled days off</span>
+                <span class="col-sm-2 col-md-2 col-lg-2 p-3 N">National/Founding Day</span>
+                <span class="col-sm-2 col-md-2 col-lg-2 p-3 H">Holidays</span>
+                <span class="col-sm-2 col-md-3 col-lg-2 p-3 Off-days">OFF Days</span>
+                <span class="col-sm-2 col-md-3 col-lg-2 p-3 explain">
+                  (E)evening/(M)Morning/(N)Night </span>
+            </div>
+        </div>
+        </div>
+
+</div>
+
+<script src="jquery-3.7.1.min.js"></script>
+<script src="common.js"></script>
+<script src="pdfmake.min.js"></script>
+<script src="jspdf.min.js"></script>
+<script src="vfs_fonts.js"></script>
+<script src="bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
