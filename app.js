@@ -36,8 +36,8 @@ const APP = (() => {
             holiday: [
                 "01/11/2026 H", "02/22/2026 N","03/19/2026 H", "03/20/2026 H","03/21/2026 H",
                 "03/22/2026 H","03/23/2026 R","03/24/2026 R","05/26/2026 H",
-                "05/27/2026 H","05/28/2026 H","05/29/2026 H","09/23/2026 N"
-                ,"09/24/2026 H","11/22/2026 H",
+                "05/27/2026 H","05/28/2026 H","05/29/2026 H","09/23/2026 N",
+                "09/24/2026 H","11/22/2026 H"
      
             ],
             schoolHoliday: []
@@ -563,9 +563,11 @@ const APP = (() => {
     daysN.push({text:d[i].month,rowSpan:5,style:"header"},{text:"Groups",rowSpan:5,style:"header"},{text:"#",style:"header1"});
     for(var j=0;j < d[i].monthDays.length;j++){
       let tempStyle="header1";
-      if(d[i].monthDays[j].class != " "){
-          tempStyle=d[i].monthDays[j].class.replace(/-/g,'')
+      if(d[i].monthDays[j].class.length > 0){
+          tempStyle=d[i].monthDays[j].class.replace(/-/g,'');
+         
         }
+      
          days.push(
            {
              text: d[i].monthDays[j].weekDayH,
